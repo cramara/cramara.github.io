@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Mon Portfolio</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-content">
+                <h1 data-i18n="nav_about">À propos</h1>
+                <ul>
+                    <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+                    <li><a href="projects.html" data-i18n="nav_projects">Projets</a></li>
+                    <li><a href="about.html" data-i18n="nav_about" class="active">À propos</a></li>
+                    <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                    <li class="language-selector">
+                        <a href="#" data-lang="fr" class="active">FR</a>
+                        <span>/</span>
+                        <a href="#" data-lang="en">EN</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-page">
+            <div class="about-container">
+                <div class="profile-section">
+                    <img 
+                        src="assets/images/profilv2.png" 
+
+                        alt="Gabin JOUSSOT-DUBIEN" 
+                        class="profile-image"
+                        onerror="this.style.display='none'"
+                    >
+                    <div class="profile-text">
+                        <h2>Gabin JOUSSOT-DUBIEN</h2>
+                        <h3 data-i18n="student_title">Étudiant ingénieur informatique à l'INSA Lyon</h3>
+                        <p class="highlight-text" data-i18n="internship_search">À la recherche d'un stage dans le domaine de l'architecture des processeurs d'une durée de 5 mois de juin à août 2025</p>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <div class="section-block">
+                        <h3><i class="fas fa-user"></i> <span data-i18n="profile_title">Profil</span></h3>
+                        <p data-i18n="profile_text1">Passionné par l'informatique, je souhaite mettre mes connaissances à profit afin de contribuer à un avenir meilleur.</p>
+                        <p data-i18n="profile_text2">Participant de sports d'équipe tels que le handball et le basketball, le travail d'équipe m'encourage à me dépasser.</p>
+                        <p data-i18n="profile_text3">Curieux et avide d'apprendre, les challenges sont pour moi une source de motivation.</p>
+                    </div>
+
+                    <div class="section-block">
+                        <h3><i class="fas fa-graduation-cap"></i> <span data-i18n="education_title">Formation</span></h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="date">2024-2025</div>
+                                <div class="content">
+                                    <h4>INSA Lyon</h4>
+                                    <p data-i18n="education_insa_current">Élève en 4e année au département informatique</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="date">2021-2022</div>
+                                <div class="content">
+                                    <h4 data-i18n="education_insa_prep">Classe préparatoire intégrée à l'INSA de Lyon</h4>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="date">2021</div>
+                                <div class="content">
+                                    <h4 data-i18n="education_bac">Baccalauréat mention très bien</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <h3><i class="fas fa-code"></i> <span data-i18n="skills_title">Compétences</span></h3>
+                        <div class="skills">
+                            <div class="skill-category">
+                                <h4 data-i18n="skills_languages">Langages</h4>
+                                <span class="skill-tag">C/C++</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">HTML/CSS/JS</span>
+                                <span class="skill-tag">Python/R</span>
+                            </div>
+                            <div class="skill-category">
+                                <h4 data-i18n="skills_tools">Outils</h4>
+                                <span class="skill-tag">CUDA</span>
+                                <span class="skill-tag">Matlab</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <h3><i class="fas fa-language"></i> <span data-i18n="languages_title">Langues</span></h3>
+                        <div class="languages">
+                            <div class="language">
+                                <span data-i18n="french">Français</span>
+                                <div class="level-text" data-i18n="french_level">Langue maternelle</div>
+                            </div>
+                            <div class="language">
+                                <span data-i18n="english">Anglais</span>
+                                <div class="level-text" data-i18n="english_level">Niveau B2</div>
+                            </div>
+                            <div class="language">
+                                <span data-i18n="spanish">Espagnol</span>
+                                <div class="level-text" data-i18n="spanish_level">Niveau B1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gabin Joussot-Dubien - <span data-i18n="copyright">Tous droits réservés</span></p>
+    </footer>
+
+    <script src="js/translations.js"></script>
+</body>
+</html> 

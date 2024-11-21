@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Mon Portfolio</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-content">
+                <h1 data-i18n="nav_contact">Contact</h1>
+                <ul>
+                    <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+                    <li><a href="projects.html" data-i18n="nav_projects">Projets</a></li>
+                    <li><a href="about.html" data-i18n="nav_about">À propos</a></li>
+                    <li><a href="contact.html" data-i18n="nav_contact" class="active">Contact</a></li>
+                    <li class="language-selector">
+                        <a href="#" data-lang="fr" class="active">FR</a>
+                        <span>/</span>
+                        <a href="#" data-lang="en">EN</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-page">
+            <div class="contact-info">
+                <h2 data-i18n="my_coordinates">Mes Coordonnées</h2>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>gabin.joussot-dubien@orange.fr</p>
+                        <button class="copy-btn" data-copy="gabin.joussot-dubien@orange.fr" data-tooltip="Copier dans le presse-papier">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+33 7 86 91 01 05</p>
+                        <button class="copy-btn" data-copy="+33786910105" data-tooltip="Copier dans le presse-papier">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>59 Avenue Galline<br>69100 Villeurbanne</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <p><a href="https://linkedin.com/in/gabin-joussot-dubien" target="_blank">Gabin Joussot-Dubien</a></p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-car"></i>
+                        <p data-i18n="drivers_license">Permis B</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gabin Joussot-Dubien - <span data-i18n="copyright">Tous droits réservés</span></p>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html> 

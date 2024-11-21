@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="nav-content">
-                <h1>Mon Portfolio</h1>
+                <h1>Portfolio</h1>
                 <ul>
-                    <li><a href="#projets">Projets</a></li>
-                    <li><a href="#about">À propos</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="index.html" data-i18n="nav_home" class="active">Accueil</a></li>
+                    <li><a href="projects.html" data-i18n="nav_projects">Projets</a></li>
+                    <li><a href="about.html" data-i18n="nav_about">À propos</a></li>
+                    <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                    <li class="language-selector">
+                        <a href="#" data-lang="fr" class="active">FR</a>
+                        <span>/</span>
+                        <a href="#" data-lang="en">EN</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -23,36 +29,39 @@
 
     <main>
         <section class="hero">
-            <h2>Bienvenue sur mon portfolio</h2>
-            <p>Développeur passionné créant des solutions innovantes</p>
-        </section>
-
-        <section id="projets" class="projects">
-            <h2>Mes Projets</h2>
-            <div class="projects-grid">
-                <!-- Les projets seront générés dynamiquement avec JavaScript -->
+            <h2 data-i18n="welcome">Bienvenue sur mon portfolio</h2>
+            <p data-i18n="hero_description">Étudiant en informatique passionné par l'architecture des processeurs</p>
+            <div class="hero-buttons">
+                <a href="projects.html" class="btn primary" data-i18n="view_projects">Voir mes projets</a>
+                <a href="about.html" class="btn secondary" data-i18n="learn_more">En savoir plus</a>
             </div>
         </section>
 
-        <section id="about" class="about">
-            <h2>À propos de moi</h2>
-            <p>Présentez-vous ici...</p>
-        </section>
-
-        <section id="contact" class="contact">
-            <h2>Contact</h2>
-            <div class="social-links">
-                <a href="https://github.com/votre-username" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/votre-profil" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:votre@email.com"><i class="fas fa-envelope"></i></a>
+        <section class="quick-links">
+            <div class="quick-link-container">
+                <a href="projects.html" class="quick-link">
+                    <i class="fas fa-code"></i>
+                    <h3 data-i18n="nav_projects">Projets</h3>
+                    <p data-i18n="projects_description">Découvrez mes réalisations</p>
+                </a>
+                <a href="about.html" class="quick-link">
+                    <i class="fas fa-user"></i>
+                    <h3 data-i18n="nav_about">À propos</h3>
+                    <p data-i18n="about_description">Mon parcours et mes compétences</p>
+                </a>
+                <a href="contact.html" class="quick-link">
+                    <i class="fas fa-envelope"></i>
+                    <h3 data-i18n="nav_contact">Contact</h3>
+                    <p data-i18n="contact_description">Prenez contact avec moi</p>
+                </a>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Votre Nom - Tous droits réservés</p>
+        <p>&copy; 2024 Gabin Joussot-Dubien - <span data-i18n="copyright">Tous droits réservés</span></p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/translations.js"></script>
 </body>
 </html> 
