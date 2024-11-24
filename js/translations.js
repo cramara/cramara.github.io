@@ -15,7 +15,7 @@ const translations = {
         // About page
         about_title: "À propos",
         student_title: "Étudiant ingénieur informatique à l'INSA Lyon",
-        internship_search: "À la recherche d'un stage dans le domaine de l'architecture des processeurs d'une durée de 5 mois de juin à août 2025",
+        internship_search: "À la recherche d'un stage dans le domaine de l'architecture des processeurs d'une durée de 3 mois de juin à août 2025",
         profile_title: "Profil",
         profile_text1: "Passionné par l'informatique, je souhaite mettre mes connaissances à profit afin de contribuer à un avenir meilleur.",
         profile_text2: "Participant de sports d'équipe tels que le handball et le basketball, le travail d'équipe m'encourage à me dépasser.",
@@ -56,7 +56,29 @@ const translations = {
         learn_more: "En savoir plus",
         projects_description: "Découvrez mes réalisations",
         about_description: "Mon parcours et mes compétences",
-        contact_description: "Prenez contact avec moi"
+        contact_description: "Prenez contact avec moi",
+        download_cv: "Mon CV",
+        
+        // Expériences
+        experience_title: "Expériences",
+        experience_gcu_title: "Développement d'une app de gestion",
+        experience_gcu_detail1: "Projet de Junior Entreprise (ETIC)",
+        experience_gcu_detail2: "Travail en équipe / Relation client",
+        experience_gcu_detail3: "Développement web (React / Node.js)",
+        
+        experience_inria_title: "Stage de recherche en bioinformatique",
+        experience_inria_detail1: "Découverte de la recherche",
+        experience_inria_detail2: "Apprentissage du calcul sur GPU avec CUDA",
+        experience_inria_detail3: "Benchmark CPU et GPU",
+        
+        experience_module_title: "Projet d'un module d'assistance au déplacement",
+        experience_module_detail1: "Programmation embarquée (IoT)",
+        experience_module_detail2: "Réseau",
+        experience_module_detail3: "Traitement de données (Python / R)",
+        
+        experience_ineo_title: "Stage en bureau d'étude",
+        experience_ineo_detail1: "Découverte du monde de l'entreprise",
+        experience_ineo_detail2: "Étude de conception",
     },
     en: {
         // Navigation
@@ -74,7 +96,7 @@ const translations = {
         // About page
         about_title: "About",
         student_title: "Computer Science Engineering Student at INSA Lyon",
-        internship_search: "Looking for a 5-month internship in processor architecture from June to August 2025",
+        internship_search: "Looking for a 3-month internship in processor architecture from June to August 2025",
         profile_title: "Profile",
         profile_text1: "Passionate about computer science, I aim to use my knowledge to contribute to a better future.",
         profile_text2: "Playing team sports such as handball and basketball has taught me the value of teamwork and pushing my limits.",
@@ -115,7 +137,29 @@ const translations = {
         learn_more: "Learn more",
         projects_description: "Discover my work",
         about_description: "My background and skills",
-        contact_description: "Get in touch"
+        contact_description: "Get in touch",
+        download_cv: "My CV",
+        
+        // Experiences
+        experience_title: "Experiences",
+        experience_gcu_title: "Management App Development",
+        experience_gcu_detail1: "Junior Enterprise Project (ETIC)",
+        experience_gcu_detail2: "Teamwork / Client Relations",
+        experience_gcu_detail3: "Web Development (React / Node.js)",
+        
+        experience_inria_title: "Bioinformatics Research Internship",
+        experience_inria_detail1: "Research Discovery",
+        experience_inria_detail2: "GPU Computing with CUDA",
+        experience_inria_detail3: "CPU and GPU Benchmarking",
+        
+        experience_module_title: "Mobility Assistance Module Project",
+        experience_module_detail1: "Embedded Programming (IoT)",
+        experience_module_detail2: "Network",
+        experience_module_detail3: "Data Processing (Python / R)",
+        
+        experience_ineo_title: "Design Office Internship",
+        experience_ineo_detail1: "Business World Discovery",
+        experience_ineo_detail2: "Design Study",
     }
 };
 

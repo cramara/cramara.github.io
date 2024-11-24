@@ -39,7 +39,13 @@
                         onerror="this.style.display='none'"
                     >
                     <div class="profile-text">
-                        <h2>Gabin JOUSSOT-DUBIEN</h2>
+                        <div class="name-cv-container">
+                            <h2>Gabin JOUSSOT-DUBIEN</h2>
+                            <a href="assets/file/CV/CV_lambda.pdf" class="cv-download-btn" download>
+                                <i class="fas fa-download"></i>
+                                <span data-i18n="download_cv">Mon CV</span>
+                            </a>
+                        </div>
                         <h3 data-i18n="student_title">Étudiant ingénieur informatique à l'INSA Lyon</h3>
                         <p class="highlight-text" data-i18n="internship_search">À la recherche d'un stage dans le domaine de l'architecture des processeurs d'une durée de 5 mois de juin à août 2025</p>
                     </div>
@@ -51,6 +57,67 @@
                         <p data-i18n="profile_text1">Passionné par l'informatique, je souhaite mettre mes connaissances à profit afin de contribuer à un avenir meilleur.</p>
                         <p data-i18n="profile_text2">Participant de sports d'équipe tels que le handball et le basketball, le travail d'équipe m'encourage à me dépasser.</p>
                         <p data-i18n="profile_text3">Curieux et avide d'apprendre, les challenges sont pour moi une source de motivation.</p>
+                    </div>
+
+                    <div class="section-block">
+                        <h3><i class="fas fa-briefcase"></i> <span data-i18n="experience_title">Expériences</span></h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="date">Juillet 2024 - Octobre 2024</div>
+                                <div class="content">
+                                    <p data-i18n="experience_gcu_title">Développement d'une app de gestion</p>
+                                    <a href="projects.html#gcu-decla" class="logo-link">
+                                        <img src="assets/images/logos/logo_gcu.png" alt="Logo GCU Decla" class="company-logo">
+                                    </a>
+                                    <ul class="experience-details">
+                                        <li data-i18n="experience_gcu_detail1">Projet de Junior Entreprise (ETIC)</li>
+                                        <li data-i18n="experience_gcu_detail2">Travail en équipe / Relation client</li>
+                                        <li data-i18n="experience_gcu_detail3">Développement web (React / Node.js)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="date">Juillet 2024 - Septembre 2024</div>
+                                <div class="content">
+                                    <p data-i18n="experience_inria_title">Stage de recherche en bioinformatique</p>
+                                    <a href="https://fr.wikipedia.org/wiki/Institut_national_de_recherche_en_informatique_et_en_automatique" target="_blank" class="logo-link">
+                                        <img src="assets/images/logos/logo_inria.png" alt="Logo INRIA" class="company-logo">
+                                    </a>
+                                    <ul class="experience-details">
+                                        <li data-i18n="experience_inria_detail1">Découverte de la recherche</li>
+                                        <li data-i18n="experience_inria_detail2">Apprentissage du calcul sur GPU avec CUDA</li>
+                                        <li data-i18n="experience_inria_detail3">Benchmark CPU et GPU</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="date">Février 2023 - Juin 2023</div>
+                                <div class="content">
+                                    <p data-i18n="experience_module_title">Projet d'un module d'assistance au déplacement</p>
+                                    <a href="https://fr.wikipedia.org/wiki/Institut_national_des_sciences_appliquées_de_Lyon" target="_blank" class="logo-link">
+                                        <img src="assets/images/logos/logo_insa.jpg" alt="Logo INSA" class="company-logo">
+                                    </a>
+                                    <ul class="experience-details">
+                                        <li data-i18n="experience_module_detail1">Programmation embarquée (IoT)</li>
+                                        <li data-i18n="experience_module_detail2">Réseau</li>
+                                        <li data-i18n="experience_module_detail3">Traitement de données (Python / R)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="date">Juillet 2022</div>
+                                <div class="content">
+                                    <p data-i18n="experience_ineo_title">Stage en bureau d'étude</p>
+                                    <a href="https://fr.wikipedia.org/wiki/Engie_Ineo" target="_blank" class="logo-link">
+                                        <img src="assets/images/logos/logo_ineo.jpg" alt="Logo INEO" class="company-logo">
+                                    </a>
+                                    <ul class="experience-details">
+                                        <li data-i18n="experience_ineo_detail1">Découverte du monde de l'entreprise</li>
+                                        <li data-i18n="experience_ineo_detail2">Étude de conception</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="section-block">
@@ -83,15 +150,15 @@
                         <div class="skills">
                             <div class="skill-category">
                                 <h4 data-i18n="skills_languages">Langages</h4>
-                                <span class="skill-tag">C/C++</span>
-                                <span class="skill-tag">Java</span>
-                                <span class="skill-tag">HTML/CSS/JS</span>
-                                <span class="skill-tag">Python/R</span>
+                                <a href="https://fr.wikipedia.org/wiki/C%2B%2B" target="_blank" class="skill-tag">C/C++</a>
+                                <a href="https://fr.wikipedia.org/wiki/Java_(langage)" target="_blank" class="skill-tag">Java</a>
+                                <a href="https://fr.wikipedia.org/wiki/HTML5" target="_blank" class="skill-tag">HTML/CSS/JS</a>
+                                <a href="https://fr.wikipedia.org/wiki/Python_(langage)" target="_blank" class="skill-tag">Python/R</a>
                             </div>
                             <div class="skill-category">
                                 <h4 data-i18n="skills_tools">Outils</h4>
-                                <span class="skill-tag">CUDA</span>
-                                <span class="skill-tag">Matlab</span>
+                                <a href="https://fr.wikipedia.org/wiki/CUDA" target="_blank" class="skill-tag">CUDA</a>
+                                <a href="https://fr.wikipedia.org/wiki/MATLAB" target="_blank" class="skill-tag">Matlab</a>
                             </div>
                         </div>
                     </div>
@@ -113,6 +180,8 @@
                             </div>
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
         </section>
