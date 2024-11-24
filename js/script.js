@@ -1,32 +1,33 @@
 // Données des projets
 const projects = [
     {
-        title: "Awale - Jeu en réseau",
-        description: "Implémentation du jeu traditionnel Awale (ou Mancala) en version réseau, permettant aux joueurs de s'affronter en ligne avec un système de matchmaking, chat, et observation de parties.",
-        technologies: ["C", "Sockets", "Makefile", "Multithreading"],
+        title_key: "awale_title",
+        description_key: "awale_description",
+        technologies: ["tech_c", "tech_sockets", "tech_makefile", "tech_multithreading"],
         features: [
-            "Chat en temps réel",
-            "Mode spectateur",
-            "Gestion des profils joueurs",
-            "Parties publiques/privées",
-            "Interface console interactive"
+            "awale_feature1",
+            "awale_feature2",
+            "awale_feature3",
+            "awale_feature4",
+            "awale_feature5"
         ],
         githubLink: "https://github.com/cramara/awale",
         demoLink: null,
         images: [
             "assets/images/awale/awale.png"
-        ]
+        ],
+        private: false
     },
     {
-        title: "Développement d'une application de déclaration des horaires",
-        description: "En collaboration avec la junior entreprise de l'INSA de Lyon (ETIC), nous avons développé une application de déclaration des horaires pour un département de l'école.",
-        technologies: ["React", "Node.js", "PL/SQL", "Devops"],
+        title_key: "gcu_title",
+        description_key: "gcu_description",
+        technologies: ["tech_react", "tech_nodejs", "tech_plsql", "tech_devops"],
         features: [
-            "Dashboard des repatition des heures par matière",
-            "Vue globale des horaires par enseignant",
-            "Replissage des horaires partagés entre les responsables et les professeurs",
-            "Import / Export des données",
-            "Gestion des rôles utilisateurs"
+            "gcu_feature1",
+            "gcu_feature2",
+            "gcu_feature3",
+            "gcu_feature4",
+            "gcu_feature5"
         ],
         githubLink: "https://github.com/cramara/awale",
         demoLink: null,
@@ -36,19 +37,19 @@ const projects = [
             "assets/images/gcu/stats.png",
             "assets/images/gcu/var.png",
             "assets/images/gcu/fiche.png"
-        ]
+        ],
+        private: true
     },
     {
-        title: "Conception d'un outil de gestion",
-        description: "Lors d'un cours de conception d'outils de gestion, nous avons simuler un projet d'amélioration des processus de maintenance pour l'entreprise SPIE. " +
-        "Nous avons choisi de créer un outil de gestion des maintenance pour l'entreprise SPIE.",
-        technologies: ["Figma", "Gestion de projet", "Team"],
+        title_key: "spie_title",
+        description_key: "spie_description",
+        technologies: ["tech_figma", "tech_project_management", "tech_team"],
         features: [
-            "Formulaire pour récupérer les informations des techniciens",
-            "Différents Dashboard pour les différents rôles de l'entreprise",
-            "Amélioration des processus existants au sein de l'entreprise",
-            "Redaction de documents de gestion de projet (dossier de cadrage, fiches de suivis, etc.)",
-            "Présentation orale devant un jury"
+            "spie_feature1",
+            "spie_feature2",
+            "spie_feature3",
+            "spie_feature4",
+            "spie_feature5"
         ],
         githubLink: "https://github.com/cramara/awale",
         demoLink: null,
@@ -57,22 +58,44 @@ const projects = [
             "assets/images/spie/dashboard.svg",
             "assets/images/spie/equipe.svg",
             "assets/images/spie/stats.svg"
-        ]
+        ],
+        private: true
     },
-    
-    // Ajoutez d'autres projets ici
+    {
+        title_key: "snake_title",
+        description_key: "snake_description",
+        technologies: ["tech_python", "tech_graphs", "tech_tkinter"],
+        features: [
+            "snake_feature1",
+            "snake_feature2",
+            "snake_feature3",
+            "snake_feature4"
+        ],
+        githubLink: "https://github.com/cramara/Snake_duo",
+        demoLink: null,
+        images: [
+            "assets/images/snake/menu.png",
+            "assets/images/snake/partie.png",
+            "assets/images/snake/debut.png",
+            "assets/images/snake/fin_2.png"
+        ],
+        private: false
+    }
 ];
 
 // Fonction pour créer les cartes de projets
 function createProjectCard(project) {
+    const currentLang = localStorage.getItem('preferred_language') || 'fr';
+    const t = translations[currentLang];
+
     const imagesHtml = project.images.map((img, index) => `
         <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="${img}" alt="${project.title} - image ${index + 1}">
+            <img src="${img}" alt="${t[project.title_key]} - image ${index + 1}">
         </div>
     `).join('');
 
     return `
-        <article class="project-card">
+        <article class="project-card ${project.private ? 'private' : ''}">
             <div class="project-carousel">
                 <div class="carousel-container">
                     ${imagesHtml}
@@ -88,20 +111,28 @@ function createProjectCard(project) {
                 ` : ''}
             </div>
             <div class="project-content">
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
+                <h3>${t[project.title_key]}</h3>
+                <p>${t[project.description_key]}</p>
                 <div class="technologies">
-                    ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                    ${project.technologies.map(tech => `<span class="tech-tag">${t[tech]}</span>`).join('')}
                 </div>
                 <div class="project-features">
-                    <h4>Fonctionnalités principales :</h4>
+                    <h4>${t.project_features}</h4>
                     <ul>
-                        ${project.features.map(feature => `<li>${feature}</li>`).join('')}
+                        ${project.features.map(feature => `<li>${t[feature]}</li>`).join('')}
                     </ul>
                 </div>
                 <div class="project-links">
-                    ${project.githubLink ? `<a href="${project.githubLink}" class="btn" target="_blank"><i class="fab fa-github"></i> Code source</a>` : ''}
-                    ${project.demoLink ? `<a href="${project.demoLink}" class="btn" target="_blank"><i class="fas fa-external-link-alt"></i> Démo</a>` : ''}
+                    ${project.githubLink && !project.private ? 
+                        `<a href="${project.githubLink}" class="btn" target="_blank"><i class="fab fa-github"></i> ${t.source_code}</a>` 
+                        : project.private ? 
+                        `<div class="tooltip-container">
+                            <span class="btn disabled"><i class="fab fa-github"></i> ${t.source_code}</span>
+                            <span class="tooltip-text">${t.private_source}</span>
+                        </div>`
+                        : ''
+                    }
+                    ${project.demoLink ? `<a href="${project.demoLink}" class="btn" target="_blank"><i class="fas fa-external-link-alt"></i> ${t.demo}</a>` : ''}
                 </div>
             </div>
         </article>

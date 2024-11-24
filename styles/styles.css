@@ -91,14 +91,15 @@ nav ul li a.active:hover {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    padding: 2rem;
-    max-width: 95vw;
+    padding: 6rem 2rem 2rem;
+    max-width: 1400px;
     margin: 0 auto;
-    overflow-y: auto;
-    max-height: calc(100vh - 200px);
 }
 
 .project-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -125,6 +126,9 @@ nav ul li a.active:hover {
 }
 
 .project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 1.5rem;
 }
 
@@ -149,6 +153,7 @@ nav ul li a.active:hover {
 }
 
 .project-features {
+    flex: 1;
     margin: 1rem 0;
 }
 
@@ -239,7 +244,7 @@ footer {
 
     .projects-grid {
         grid-template-columns: 1fr;
-        max-height: none;
+        max-width: 800px;
     }
 }
 
@@ -957,4 +962,73 @@ img[src*="logo_ineo"] {
     font-size: 1rem;
     margin: 0;
     padding-right: 60px; /* Espace pour le logo */
-} 
+}
+
+.project-card.private .project-links .github-link {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.project-card.private::before {
+    content: "Privé";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4444;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+[data-lang="en"] .project-card.private::before {
+    content: "Private";
+}
+
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #666;
+    position: relative;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--primary-color) transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+  

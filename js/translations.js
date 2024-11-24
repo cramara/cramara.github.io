@@ -79,6 +79,72 @@ const translations = {
         experience_ineo_title: "Stage en bureau d'étude",
         experience_ineo_detail1: "Découverte du monde de l'entreprise",
         experience_ineo_detail2: "Étude de conception",
+        
+        // Private source
+        private_source: "Code source privé",
+        view_source: "Voir le code source",
+        
+        // Projets
+        project_features: "Fonctionnalités principales :",
+        source_code: "Code source",
+        demo: "Démo",
+        private_source: "Code source privé",
+        
+        // Descriptions des projets
+        awale_title: "Awale - Jeu en réseau",
+        awale_description: "Implémentation du jeu traditionnel Awale (ou Mancala) en version réseau, permettant aux joueurs de s'affronter en ligne avec un système de matchmaking, chat, et observation de parties.",
+        
+        gcu_title: "Développement d'une application de déclaration des horaires",
+        gcu_description: "En collaboration avec la junior entreprise de l'INSA de Lyon (ETIC), nous avons développé une application de déclaration des horaires pour un département de l'école.",
+        
+        spie_title: "Conception d'un outil de gestion",
+        spie_description: "Lors d'un cours de conception d'outils de gestion, nous avons simuler un projet d'amélioration des processus de maintenance pour l'entreprise SPIE. Nous avons choisi de créer un outil de gestion des maintenance pour l'entreprise SPIE.",
+        
+        snake_title: "Snake en 2v2 contre des IA",
+        snake_description: "Projet étudiant de développement d'un jeu de type Snake en 2v2 contre des IA. Le jeu est développé en Python avec la librairie Tkinter.",
+        
+        // Awale features
+        awale_feature1: "Chat en temps réel",
+        awale_feature2: "Mode spectateur",
+        awale_feature3: "Gestion des profils joueurs",
+        awale_feature4: "Parties publiques/privées",
+        awale_feature5: "Interface console interactive",
+        
+        // GCU features
+        gcu_feature1: "Dashboard des repatition des heures par matière",
+        gcu_feature2: "Vue globale des horaires par enseignant",
+        gcu_feature3: "Replissage des horaires partagés entre les responsables et les professeurs",
+        gcu_feature4: "Import / Export des données",
+        gcu_feature5: "Gestion des rôles utilisateurs",
+        
+        // SPIE features
+        spie_feature1: "Formulaire pour récupérer les informations des techniciens",
+        spie_feature2: "Différents Dashboard pour les différents rôles de l'entreprise",
+        spie_feature3: "Amélioration des processus existants au sein de l'entreprise",
+        spie_feature4: "Redaction de documents de gestion de projet (dossier de cadrage, fiches de suivis, etc.)",
+        spie_feature5: "Présentation orale devant un jury",
+        
+        // Snake features
+        snake_feature1: "Jouer contre des IA",
+        snake_feature2: "Se faire affronter des IA entre elles",
+        snake_feature3: "Interface graphique",
+        snake_feature4: "Sauvegarde des parties",
+        
+        // Technologies
+        tech_c: "C",
+        tech_sockets: "Sockets réseau",
+        tech_makefile: "Makefile",
+        tech_multithreading: "Multithreading",
+        tech_react: "React",
+        tech_nodejs: "Node.js",
+        tech_plsql: "PL/SQL",
+        tech_devops: "Devops",
+        tech_figma: "Figma",
+        tech_project_management: "Gestion de projet",
+        tech_team: "Team",
+        tech_python: "Python",
+        tech_graphs: "Graphes",
+        tech_tkinter: "Tkinter"
     },
     en: {
         // Navigation
@@ -160,6 +226,72 @@ const translations = {
         experience_ineo_title: "Design Office Internship",
         experience_ineo_detail1: "Business World Discovery",
         experience_ineo_detail2: "Design Study",
+        
+        // Private source
+        private_source: "Private source code",
+        view_source: "View source code",
+        
+        // Projects
+        project_features: "Main features:",
+        source_code: "Source code",
+        demo: "Demo",
+        private_source: "Private source code",
+        
+        // Project descriptions
+        awale_title: "Awale - Network Game",
+        awale_description: "Implementation of the traditional Awale game (or Mancala) in a network version, allowing players to compete online with a matchmaking system, chat, and game observation.",
+        
+        gcu_title: "Schedule Management Application Development",
+        gcu_description: "In collaboration with INSA Lyon's junior enterprise (ETIC), we developed a schedule management application for a department of the school.",
+        
+        spie_title: "Management Tool Design",
+        spie_description: "During a management tools design course, we simulated a maintenance process improvement project for SPIE company. We chose to create a maintenance management tool for SPIE company.",
+        
+        snake_title: "2v2 Snake Game against AIs",
+        snake_description: "Student project developing a 2v2 Snake game against AIs. The game is developed in Python using the Tkinter library.",
+        
+        // Awale features
+        awale_feature1: "Real-time chat",
+        awale_feature2: "Spectator mode",
+        awale_feature3: "Player profile management",
+        awale_feature4: "Public/private games",
+        awale_feature5: "Interactive console interface",
+        
+        // GCU features
+        gcu_feature1: "Hours distribution dashboard by subject",
+        gcu_feature2: "Global view of teacher schedules",
+        gcu_feature3: "Shared schedule management between managers and teachers",
+        gcu_feature4: "Data import / export",
+        gcu_feature5: "User role management",
+        
+        // SPIE features
+        spie_feature1: "Form to collect technician information",
+        spie_feature2: "Different dashboards for different company roles",
+        spie_feature3: "Improvement of existing processes within the company",
+        spie_feature4: "Project management documentation (framing file, monitoring sheets, etc.)",
+        spie_feature5: "Oral presentation to a jury",
+        
+        // Snake features
+        snake_feature1: "Play against AIs",
+        snake_feature2: "Make AIs fight each other",
+        snake_feature3: "Graphical interface",
+        snake_feature4: "Game saving",
+        
+        // Technologies
+        tech_c: "C",
+        tech_sockets: "Network Sockets",
+        tech_makefile: "Makefile",
+        tech_multithreading: "Multithreading",
+        tech_react: "React",
+        tech_nodejs: "Node.js",
+        tech_plsql: "PL/SQL",
+        tech_devops: "Devops",
+        tech_figma: "Figma",
+        tech_project_management: "Project Management",
+        tech_team: "Team",
+        tech_python: "Python",
+        tech_graphs: "Graphs",
+        tech_tkinter: "Tkinter"
     }
 };
 
@@ -189,6 +321,12 @@ function updateContent(lang) {
             link.classList.add('active');
         }
     });
+
+    // Mettre à jour les projets
+    const projectsGrid = document.querySelector('.projects-grid');
+    if (projectsGrid) {
+        projectsGrid.innerHTML = projects.map(project => createProjectCard(project)).join('');
+    }
 }
 
 // Initialiser la langue au chargement de la page
