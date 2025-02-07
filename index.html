@@ -6,6 +6,15 @@
     <title>Mon Portfolio</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .quick-links {
+            display: none;
+        }
+        footer {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -28,16 +37,16 @@
     </header>
 
     <main>
-        <section class="hero">
-            <h2 data-i18n="welcome">Bienvenue sur mon portfolio</h2>
-            <p data-i18n="hero_description">Étudiant en informatique passionné par l'architecture des processeurs</p>
-            <div class="hero-buttons">
-                <a href="projects.html" class="btn primary" data-i18n="view_projects">Voir mes projets</a>
-                <a href="about.html" class="btn secondary" data-i18n="learn_more">En savoir plus</a>
+        <div id="animation-container">
+            <div class="threejs-overlay">
+                <!-- <div class="hero-buttons">
+                    <a href="projects.html" class="btn primary" data-i18n="view_projects">Voir mes projets</a>
+                    <a href="about.html" class="btn secondary" data-i18n="learn_more">En savoir plus</a>
+                </div> -->
             </div>
-        </section>
-
-        <section class="quick-links">
+        </div>
+        
+        <!-- <section class="quick-links">
             <div class="quick-link-container">
                 <a href="projects.html" class="quick-link">
                     <i class="fas fa-code"></i>
@@ -55,7 +64,7 @@
                     <p data-i18n="contact_description">Prenez contact avec moi</p>
                 </a>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <footer>
@@ -63,5 +72,6 @@
     </footer>
 
     <script src="js/translations.js"></script>
+    <script src="js/animation.js"></script>
 </body>
 </html> 
