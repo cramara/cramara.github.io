@@ -12,7 +12,7 @@ const loader = new THREE.FontLoader();
 // Modification des traductions pour éviter le conflit
 const threejsTranslations = {
     fr: {
-        welcome: "Bienvenue sur mon portfolioOO",
+        welcome: "Bienvenue sur mon portfolio",
         description: "Étudiant en informatique",
         viewProjects: "Voir mes projets",
         learnMore: "En savoir plus",
