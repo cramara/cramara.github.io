@@ -55,6 +55,10 @@ let textMeshes = {
 // Ajout d'une variable pour activer/désactiver les logs de débogage
 const DEBUG = true;
 
+// Positions globales pour les quick links
+const quickLinksY = -1; // Position Y des quick links
+const quickLinksZ = -2; // Position Z des quick links
+
 // Au début du fichier, après les autres constantes
 const HEADER_SHOW_THRESHOLD = 100;
 let isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
@@ -381,37 +385,61 @@ async function init() {
         };
     }
 
-    // Création du torus knot avec des paramètres aléatoires
-    const params = getRandomTorusKnotParams();
-    const torusKnotGeometry = new THREE.TorusKnotGeometry(
-        params.radius,
-        params.tube,
-        params.tubularSegments,
-        params.radialSegments,
-        params.p,
-        params.q
-    );
+    // Création des torus knots pour chaque quick link
+    const torusKnots = {
+        'projects.html': createTorusKnot(-4, quickLinksY, quickLinksZ),
+        'about.html': createTorusKnot(0, quickLinksY, quickLinksZ),
+        'contact.html': createTorusKnot(4, quickLinksY, quickLinksZ)
+    };
     
-    if (DEBUG) {
-        console.log("Torus Knot Parameters:", params);
+    // Fonction pour créer un torus knot
+    function createTorusKnot(x, y, z) {
+        const params = getRandomTorusKnotParams();
+        const geometry = new THREE.TorusKnotGeometry(
+            params.radius,
+            params.tube,
+            params.tubularSegments,
+            params.radialSegments,
+            params.p,
+            params.q
+        );
+        
+        const initialColor = new THREE.Color().setHSL(params.initialHue, 0.8, 0.5);
+        const material = new THREE.MeshPhongMaterial({ 
+            color: initialColor,
+            shininess: 100,
+            specular: 0x666666,
+            emissive: initialColor,
+            emissiveIntensity: 0.2,
+            transparent: true,
+            opacity: 0.8
+        });
+        
+        const torusKnot = new THREE.Mesh(geometry, material);
+        torusKnot.position.set(x, y + 1.2, z);
+        
+        // Créer une hit area rectangulaire plus grande qui englobe le torus et le texte
+        const hitAreaGeometry = new THREE.PlaneGeometry(2, 4); // Augmenter la taille pour couvrir le torus et le texte
+        const hitAreaMaterial = new THREE.MeshBasicMaterial({
+            transparent: true,
+            opacity: 0,
+            side: THREE.DoubleSide
+        });
+        const hitArea = new THREE.Mesh(hitAreaGeometry, hitAreaMaterial);
+        // Positionner la hit area entre le torus et le texte
+        hitArea.position.set(x, y + 0.6, z); // Ajuster la position Y pour centrer entre le torus et le texte
+        hitArea.userData.parentTorus = torusKnot;
+        scene.add(hitArea);
+        torusKnot.userData.hitArea = hitArea;
+        
+        scene.add(torusKnot);
+        
+        if (DEBUG) {
+            console.log(`Torus Knot Parameters for ${x}:`, params);
+        }
+        
+        return torusKnot;
     }
-
-    // Création de la couleur initiale aléatoire
-    const initialColor = new THREE.Color().setHSL(params.initialHue, 0.8, 0.5);
-
-    const torusKnotMaterial = new THREE.MeshPhongMaterial({ 
-        color: initialColor,
-        shininess: 100,
-        specular: 0x666666,
-        emissive: initialColor,
-        emissiveIntensity: 0.2,
-        transparent: true,
-        opacity: 0.8
-    });
-    const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
-    scene.add(torusKnot);
-    // Positionner le torus knot plus haut
-    torusKnot.position.y = 0.2;
 
     // Création et ajout du soleil
     const sun = createSun();
@@ -457,10 +485,6 @@ async function init() {
         });
     });
 
-    // Création des quick links
-    const quickLinksY = -1; // Position Y des quick links
-    const quickLinksZ = -2; // Position Z des quick links
-
     // Projets
     textMeshes.projects_title = await createText(threejsTranslations.fr.projects_title, { x: -4, y: quickLinksY, z: quickLinksZ }, 0.2);
     textMeshes.projects_desc = await createText(threejsTranslations.fr.projects_desc, { x: -4, y: quickLinksY - 0.3, z: quickLinksZ }, 0.15);
@@ -497,29 +521,43 @@ async function init() {
     textMeshes.about_title.userData.hoverEffect = hoverEffects.pulse;
     textMeshes.contact_title.userData.hoverEffect = hoverEffects.pulse;
 
-    // Modification de l'événement click pour inclure les quick links
+    // Dans l'événement click, modifier la détection des clics
     window.addEventListener('click', (event) => {
         raycaster.setFromCamera(mouse, camera);
         
-        // Récupérer les intersections sur l'ensemble des hit areas des quick links
-        const intersections = raycaster.intersectObjects(Object.values(quickLinkHitMeshes));
+        // Récupérer les intersections sur l'ensemble des hit areas et des torus knots
+        const allClickableObjects = [
+            ...Object.values(quickLinkHitMeshes),
+            ...Object.values(torusKnots).map(torus => torus.userData.hitArea)
+        ];
+        const intersections = raycaster.intersectObjects(allClickableObjects);
+
         if (DEBUG) {
             console.log("Intersections on click:", intersections);
         }
         if (intersections.length > 0) {
-            const hitArea = intersections[0].object;
-            // Récupérer le texte parent associé à la hit area
-            const textMesh = hitArea.parent;
-            // Trouver l'URL correspondante
-            for (const [url, area] of Object.entries(quickLinkHitMeshes)) {
-                if (area === hitArea) {
-                    textMesh.scale.setScalar(0.9);
-                    setTimeout(() => {
-                        textMesh.scale.setScalar(1.0);
-                        window.location.href = url;
-                    }, 150);
-                    break;
-                }
+            const hitObject = intersections[0].object;
+            let url;
+            let meshToAnimate;
+
+            // Vérifier si c'est un torus knot ou une hit area
+            if (hitObject.parent && hitObject.parent.type === "Mesh") {
+                // C'est une hit area
+                const textMesh = hitObject.parent;
+                meshToAnimate = textMesh;
+                url = Object.entries(quickLinkHitMeshes).find(([_, area]) => area === hitObject)?.[0];
+            } else {
+                // C'est un torus knot
+                meshToAnimate = hitObject;
+                url = Object.entries(torusKnots).find(([_, torus]) => torus === hitObject)?.[0];
+            }
+
+            if (url && meshToAnimate) {
+                meshToAnimate.scale.setScalar(0.9);
+                setTimeout(() => {
+                    meshToAnimate.scale.setScalar(1.0);
+                    window.location.href = url;
+                }, 150);
             }
         }
     });
@@ -530,16 +568,41 @@ async function init() {
         
         let time = performance.now() * 0.001;
         
-        // Animation du torus knot
-        torusKnot.rotation.x = time * 0.3;
-        torusKnot.rotation.y = time * 0.2;
-        torusKnot.rotation.z = time * 0.1;
+        // Mise à jour du raycaster
+        raycaster.setFromCamera(mouse, camera);
         
-        // Animation de la couleur du torus knot
-        const hue = (time * 0.1) % 1;
-        const color = new THREE.Color().setHSL(hue, 0.8, 0.5);
-        torusKnot.material.color = color;
-        torusKnot.material.emissive = color;
+        // Détection du survol des hit areas des torus knots et des textes
+        const allHitAreas = [
+            ...Object.values(torusKnots).map(torus => torus.userData.hitArea),
+            ...Object.values(quickLinkHitMeshes)
+        ];
+        const torusIntersections = raycaster.intersectObjects(allHitAreas);
+        const hoveredTorus = torusIntersections.length > 0 ? 
+            (torusIntersections[0].object.userData.parentTorus || 
+            Object.values(torusKnots)[Object.values(quickLinkHitMeshes).indexOf(torusIntersections[0].object)]) :
+            null;
+        
+        // Animation des torus knots
+        Object.values(torusKnots).forEach((torusKnot, index) => {
+            torusKnot.rotation.x = time * 0.3;
+            torusKnot.rotation.y = time * 0.2;
+            torusKnot.rotation.z = time * 0.1;
+            
+            const hue = ((time * 0.1) + (index * 0.3)) % 1;
+            const color = new THREE.Color().setHSL(hue, 0.8, 0.5);
+            torusKnot.material.color = color;
+            torusKnot.material.emissive = color;
+            
+            // Effet de survol
+            if (torusKnot === hoveredTorus) {
+                // Grossissement progressif au survol
+                torusKnot.scale.lerp(new THREE.Vector3(1.3, 1.3, 1.3), 0.1);
+                document.body.style.cursor = 'pointer';
+            } else {
+                // Retour progressif à la taille normale
+                torusKnot.scale.lerp(new THREE.Vector3(1.0, 1.0, 1.0), 0.1);
+            }
+        });
         
         // Animation du soleil
         const radius = 3; // Distance du soleil par rapport au centre
@@ -561,24 +624,10 @@ async function init() {
         textMeshes.welcome.position.y = 2 + Math.sin(time) * 0.05;
         textMeshes.description.position.y = 1.5 + Math.sin(time + 0.5) * 0.05;
         
-        // IMPORTANT : mettre à jour le raycaster avec la position actuelle de la souris
-        raycaster.setFromCamera(mouse, camera);
-
-        // Animation des quick links
-        const quickIntersections = raycaster.intersectObjects(Object.values(quickLinkHitMeshes));
-        if (DEBUG && quickIntersections.length > 0) {
-            console.log("Quick link hit area intersections:", quickIntersections);
-        }
-        Object.values(quickLinkHitMeshes).forEach(hitArea => {
-            const hovered = quickIntersections.some(intersect => intersect.object === hitArea);
-            const textMesh = hitArea.parent;
-            handleButtonHover(textMesh, hovered);
-        });
-
-        // Mise à jour du curseur
+        // Mise à jour du curseur (pour les hit areas et les torus)
         const isHoveringAny = Object.values(quickLinkHitMeshes).some(mesh => 
             raycaster.intersectObject(mesh).length > 0
-        );
+        ) || torusIntersections.length > 0;
         document.body.style.cursor = isHoveringAny ? 'pointer' : 'default';
 
         renderer.render(scene, camera);
@@ -626,8 +675,8 @@ async function init() {
         camera.updateProjectionMatrix();
 
         // Ajuster la taille et position du torus knot
-        torusKnot.scale.set(0.5, 0.5, 0.5);
-        torusKnot.position.y = 1.5;
+        torusKnots.projects.scale.set(0.5, 0.5, 0.5);
+        torusKnots.projects.position.y = 1.5;
 
         // Ajuster la position du soleil pour mobile
         sun.scale.set(0.7, 0.7, 0.7);
