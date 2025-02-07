@@ -374,13 +374,21 @@ async function init() {
 
     // Fonction pour obtenir des paramètres aléatoires pour le torus knot
     function getRandomTorusKnotParams() {
+        // Générer p et q en évitant certaines combinaisons
+        //Exclu les combinaisons 3-3 et 5-5 car font des tirets sur les torus knots
+        let p, q;
+        do {
+            p = Math.floor(2 + Math.random() * 5);  // p entre 2 et 6
+            q = Math.floor(1 + Math.random() * 4);  // q entre 1 et 4
+        } while ((p === 3 && q === 3) || (p === 5 && q === 5));
+        
         return {
             radius: 0.4,                    // Rayon principal fixe
             tube: 0.05 + Math.random() * 0.1,  // Épaisseur du tube entre 0.05 et 0.15
             tubularSegments: 200,           // Segments fixes pour la qualité
             radialSegments: 32,             // Segments fixes pour la qualité
-            p: Math.floor(2 + Math.random() * 5),  // Nombre de tours autour de l'axe (2-6)
-            q: Math.floor(1 + Math.random() * 4),   // Nombre de tours autour du tube (1-4)
+            p: p,  // Nombre de tours autour de l'axe
+            q: q,  // Nombre de tours autour du tube
             initialHue: Math.random()       // Couleur initiale aléatoire (0-1)
         };
     }
@@ -391,6 +399,22 @@ async function init() {
         'about.html': createTorusKnot(0, quickLinksY, quickLinksZ),
         'contact.html': createTorusKnot(4, quickLinksY, quickLinksZ)
     };
+    
+    // Afficher les paramètres de tous les torus dans la console
+    if (DEBUG) {
+        console.log("%cParamètres des Torus Knots:", "font-weight: bold; color: #00ff00;");
+        Object.entries(torusKnots).forEach(([page, torus]) => {
+            console.log(`%c${page}:`, "color: #00ff00;", {
+                radius: torus.geometry.parameters.radius,
+                tube: torus.geometry.parameters.tube,
+                tubularSegments: torus.geometry.parameters.tubularSegments,
+                radialSegments: torus.geometry.parameters.radialSegments,
+                p: torus.geometry.parameters.p,
+                q: torus.geometry.parameters.q
+            });
+        });
+    }
+
     
     // Fonction pour créer un torus knot
     function createTorusKnot(x, y, z) {
@@ -629,6 +653,8 @@ async function init() {
             raycaster.intersectObject(mesh).length > 0
         ) || torusIntersections.length > 0;
         document.body.style.cursor = isHoveringAny ? 'pointer' : 'default';
+
+
 
         renderer.render(scene, camera);
     }
