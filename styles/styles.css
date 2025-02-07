@@ -1060,4 +1060,24 @@ img[src*="logo_ineo"] {
     z-index: -1;
     overflow: hidden;
 }
+
+@media (max-width: 768px) {
+    #animation-container {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    .nav-content {
+        padding: 0.5rem;
+    }
+
+    .nav-content ul {
+        gap: 1rem;
+    }
+
+    .nav-content h1 {
+        font-size: 1.2rem;
+    }
+}
   

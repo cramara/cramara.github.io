@@ -12,7 +12,7 @@ const loader = new THREE.FontLoader();
 // Modification des traductions pour éviter le conflit
 const threejsTranslations = {
     fr: {
-        welcome: "Bienvenue sur mon portfolio",
+        welcome: "Bienvenue sur mon portfolioOO",
         description: "Étudiant en informatique",
         viewProjects: "Voir mes projets",
         learnMore: "En savoir plus",
@@ -67,21 +67,34 @@ if (isIndexPage) {
     header.style.transform = 'translateY(-100%)';
 }
 
-// Ajuster la taille du rendu
+// Ajout des constantes pour la détection mobile
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const MOBILE_SCALE_FACTOR = 0.6; // Facteur d'échelle pour les éléments sur mobile
+
+// Modification de la fonction setRendererSize
 function setRendererSize() {
     const container = document.getElementById('animation-container');
     const width = container.clientWidth;
     const height = container.clientHeight;
     renderer.setSize(width, height);
     camera.aspect = width / height;
+    
+    if (isMobile) {
+        // Ajuster le champ de vision pour mobile
+        camera.fov = 90;
+        camera.position.z = 6;
+    } else {
+        camera.fov = 75;
+        camera.position.z = 5;
+    }
+    
     camera.updateProjectionMatrix();
 }
 
 // Création des particules
 function createParticles() {
+    const particleCount = isMobile ? 1000 : 2000; // Réduire le nombre de particules sur mobile
     const particlesGeometry = new THREE.BufferGeometry();
-    const particleCount = 2000;
-    
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const sizes = new Float32Array(particleCount);
@@ -206,13 +219,16 @@ function createSun() {
 
 // Modification de la fonction createText pour utiliser une police avec support des accents
 function createText(text, position, size = 0.2) {
+    // Ajuster la taille du texte pour mobile
+    const adjustedSize = isMobile ? size * MOBILE_SCALE_FACTOR : size;
+    
     return new Promise((resolve) => {
         loader.load('https://cdn.jsdelivr.net/npm/three/examples/fonts/droid/droid_sans_regular.typeface.json', function (font) {
             const createGeometry = (text) => new THREE.TextGeometry(text, {
                 font: font,
-                size: size,
+                size: adjustedSize,
                 height: 0.05,
-                curveSegments: 12,
+                curveSegments: isMobile ? 8 : 12, // Réduire les segments sur mobile
                 bevelEnabled: false
             });
 
@@ -569,6 +585,70 @@ async function init() {
     }
 
     animate();
+
+    // Ajuster les positions des textes pour mobile
+    if (isMobile) {
+        // Titre et description plus haut sur mobile
+        textMeshes.welcome = await createText(threejsTranslations.fr.welcome, 
+            { x: 0, y: 2.5, z: -2 }, 0.25);
+        textMeshes.description = await createText(threejsTranslations.fr.description, 
+            { x: 0, y: 2, z: -2 }, 0.18);
+
+        // Organisation verticale des quick links
+        const quickLinksStartY = 1.2; // Position Y de départ plus haute
+        const quickLinksSpacing = 1.0; // Espacement vertical entre chaque section
+
+        // Projets - Premier groupe
+        textMeshes.projects_title = await createText(threejsTranslations.fr.projects_title, 
+            { x: 0, y: quickLinksStartY, z: -2 }, 0.22);
+        textMeshes.projects_desc = await createText(threejsTranslations.fr.projects_desc, 
+            { x: 0, y: quickLinksStartY - 0.3, z: -2 }, 0.15);
+
+        // À propos - Deuxième groupe
+        textMeshes.about_title = await createText(threejsTranslations.fr.about_title, 
+            { x: 0, y: quickLinksStartY - quickLinksSpacing, z: -2 }, 0.22);
+        textMeshes.about_desc = await createText(threejsTranslations.fr.about_desc, 
+            { x: 0, y: quickLinksStartY - quickLinksSpacing - 0.3, z: -2 }, 0.15);
+
+        // Contact - Troisième groupe
+        textMeshes.contact_title = await createText(threejsTranslations.fr.contact_title, 
+            { x: 0, y: quickLinksStartY - quickLinksSpacing * 2, z: -2 }, 0.22);
+        textMeshes.contact_desc = await createText(threejsTranslations.fr.contact_desc, 
+            { x: 0, y: quickLinksStartY - quickLinksSpacing * 2 - 0.3, z: -2 }, 0.15);
+
+        // Footer plus bas
+        textMeshes.footer = await createText(threejsTranslations.fr.footer, 
+            { x: 0, y: -2.5, z: -2 }, 0.1);
+
+        // Ajuster la caméra pour mobile
+        camera.position.z = 6;
+        camera.fov = 90;
+        camera.updateProjectionMatrix();
+
+        // Ajuster la taille et position du torus knot
+        torusKnot.scale.set(0.5, 0.5, 0.5);
+        torusKnot.position.y = 1.5;
+
+        // Ajuster la position du soleil pour mobile
+        sun.scale.set(0.7, 0.7, 0.7);
+    } else {
+        // Configuration desktop existante
+        // ... existing desktop code ...
+    }
+
+    // Ajouter la gestion des événements tactiles
+    if (isMobile) {
+        window.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            const touch = event.touches[0];
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((touch.clientY - rect.top) / rect.height) * 2 + 1;
+
+            // Simuler un clic pour les interactions tactiles
+            handleClick(event);
+        }, { passive: false });
+    }
 }
 
 // Appel de la fonction init au chargement de la page
@@ -594,4 +674,23 @@ window.addEventListener('mousemove', (event) => {
     if (DEBUG) {
         console.log("MouseMoved:", { x: mouse.x, y: mouse.y });
     }
-}); 
+});
+
+// Ajouter une fonction handleClick pour gérer les interactions
+function handleClick(event) {
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(Object.values(quickLinkHitMeshes));
+    
+    if (intersects.length > 0) {
+        const hitArea = intersects[0].object;
+        const textMesh = hitArea.parent;
+        
+        // Animation de clic
+        textMesh.scale.setScalar(0.9);
+        setTimeout(() => {
+            textMesh.scale.setScalar(1.0);
+            // Navigation vers la page correspondante
+            // ... existing navigation code ...
+        }, 150);
+    }
+} 
