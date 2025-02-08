@@ -379,8 +379,8 @@ async function init() {
         let p, q;
         do {
             p = Math.floor(2 + Math.random() * 5);  // p entre 2 et 6
-            q = Math.floor(1 + Math.random() * 4);  // q entre 1 et 4
-        } while ((p === 3 && q === 3) || (p === 5 && q === 5));
+            q = Math.floor(1 + Math.random() * 4);  // q entre 1 et 4 
+        } while ((p === 3 && q === 3) || (p === 5 && q === 5) || (p === 6 && q === 3));
         
         return {
             radius: 0.4,                    // Rayon principal fixe
