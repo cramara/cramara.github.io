@@ -564,19 +564,22 @@ async function init() {
             let url;
             let meshToAnimate;
 
-            // Vérifier si c'est un torus knot ou une hit area
+            // Vérifier si c'est un torus knot ou une hit area de texte
             if (hitObject.parent && hitObject.parent.type === "Mesh") {
-                // C'est une hit area
+                // C'est une hit area de texte
                 const textMesh = hitObject.parent;
                 meshToAnimate = textMesh;
                 url = Object.entries(quickLinkHitMeshes).find(([_, area]) => area === hitObject)?.[0];
-            } else {
-                // C'est un torus knot
-                meshToAnimate = hitObject;
-                url = Object.entries(torusKnots).find(([_, torus]) => torus === hitObject)?.[0];
+            } else if (hitObject.userData.parentTorus) {
+                // C'est une hit area de torus
+                meshToAnimate = hitObject.userData.parentTorus;
+                url = Object.entries(torusKnots).find(([_, torus]) => torus === hitObject.userData.parentTorus)?.[0];
             }
 
             if (url && meshToAnimate) {
+                if (DEBUG) {
+                    console.log("Clicking URL:", url);
+                }
                 meshToAnimate.scale.setScalar(0.9);
                 setTimeout(() => {
                     meshToAnimate.scale.setScalar(1.0);
