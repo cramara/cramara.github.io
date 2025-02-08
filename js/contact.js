@@ -278,8 +278,8 @@ document.addEventListener('DOMContentLoaded', function() {
     startMessage.textContent = 'Cliquez n\'importe où pour démarrer l\'animation avec le son';
     contactPage.appendChild(startMessage);
 
-    // Timer pour démarrer automatiquement après 5 secondes
-    const autoStartTimer = setTimeout(startAnimationWithoutSound, 5000);
+    // Timer pour démarrer automatiquement après 3 secondes
+    const autoStartTimer = setTimeout(startAnimationWithoutSound, 3000);
 
     // Attendre une interaction utilisateur pour démarrer avec son
     document.addEventListener('click', startAnimation);
@@ -306,6 +306,27 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (err) {
                 console.error('Erreur lors de la copie :', err);
             }
+        });
+    });
+
+    // Ajouter après la gestion des boutons de copie
+    const openLinkButtons = document.querySelectorAll('.open-link-btn');
+
+    openLinkButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const url = this.getAttribute('data-link');
+            window.open(url, '_blank', 'noopener,noreferrer');
+            
+            // Feedback visuel
+            const icon = this.querySelector('i');
+            icon.className = 'fas fa-check';
+            this.classList.add('copied');
+            
+            // Remettre l'icône originale après 2 secondes
+            setTimeout(() => {
+                icon.className = 'fas fa-external-link-alt';
+                this.classList.remove('copied');
+            }, 2000);
         });
     });
 }); 

@@ -310,6 +310,8 @@ footer {
     height: auto;
     max-height: 90vh;
     transition: height 0.3s ease;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .contact-info::before {
@@ -397,9 +399,9 @@ footer {
     color: var(--secondary-color);
 }
 
-/* Modification du style des boutons de copie */
+/* Style commun pour tous les boutons avec tooltip */
 .copy-btn {
-    display: none; /* Cache tous les boutons par défaut */
+    display: none;
     position: absolute;
     right: 1rem;
     top: 50%;
@@ -413,8 +415,9 @@ footer {
     transition: all 0.3s ease;
 }
 
-/* Affiche uniquement les boutons dans les éléments copiables */
-.contact-item.copiable .copy-btn {
+/* Afficher le bouton pour les éléments copiables et le lien LinkedIn */
+.contact-item.copiable .copy-btn,
+.contact-item:has(.fa-linkedin) .copy-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1243,5 +1246,24 @@ img[src*="logo_ineo"] {
     width: 20px;
     text-align: center;
     flex-shrink: 0;
+}
+
+.open-link-btn {
+    display: flex;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.open-link-btn:hover {
+    color: var(--primary-color);
 }
   
