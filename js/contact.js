@@ -86,7 +86,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Animation séquentielle des éléments de contact
+    // Variable pour suivre si l'animation initiale est terminée
+    let isInitialAnimationComplete = false;
+    // Variable pour stocker la ligne active
+    let currentLine = null;
+    // Variable pour stocker toutes les lignes de texte
+    const textLines = [];
+
+    // Fonction pour ajuster la hauteur de la feuille
+    function adjustPaperHeight() {
+        const contactInfo = document.querySelector('.contact-info');
+        const content = contactInfo.scrollHeight;
+        const minHeight = window.innerHeight * 0.6; // 60vh en pixels
+        const maxHeight = window.innerHeight * 0.9; // 90vh en pixels
+        
+        // Calculer la nouvelle hauteur
+        const newHeight = Math.max(minHeight, Math.min(content, maxHeight));
+        contactInfo.style.height = `${newHeight}px`;
+    }
+
+    // Modifier la fonction createNewLine pour appeler adjustPaperHeight
+    function createNewLine() {
+        // Supprimer le message d'invitation s'il existe
+        const inviteMessage = document.querySelector('.invite-message');
+        if (inviteMessage) {
+            inviteMessage.remove();
+        }
+        
+        // Vérifier le nombre de lignes existantes
+        if (textLines.length >= 15) { // Réduit de 20 à 15 lignes
+            // Supprimer la première ligne si on dépasse la limite
+            if (textLines[0]) {
+                textLines[0].remove();
+                textLines.shift();
+            }
+        }
+        
+        const lineContainer = document.createElement('div');
+        lineContainer.className = 'contact-item user-line';
+        
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-pencil-alt'; // Icône de crayon
+        
+        const newLine = document.createElement('p');
+        newLine.className = 'user-typing-line';
+        newLine.style.margin = '0';
+        newLine.style.minHeight = '1.2em';
+        
+        lineContainer.appendChild(icon);
+        lineContainer.appendChild(newLine);
+        document.querySelector('.contact-info').appendChild(lineContainer);
+        
+        currentLine = newLine;
+        textLines.push(lineContainer);
+        
+        // Ajuster la hauteur de la feuille
+        adjustPaperHeight();
+    }
+
+    // Modification de la fonction animateContactInfo pour signaler quand elle est terminée
     async function animateContactInfo() {
         const contactItems = document.querySelectorAll('.contact-item p');
         
@@ -105,9 +163,49 @@ document.addEventListener('DOMContentLoaded', function() {
         for (const item of contactItems) {
             const originalText = item.textContent;
             await typewriterEffect(item, originalText);
-            await new Promise(resolve => setTimeout(resolve, 150)); // Pause réduite entre chaque élément
+            await new Promise(resolve => setTimeout(resolve, 150));
         }
+
+        // Signaler que l'animation initiale est terminée
+        isInitialAnimationComplete = true;
+        
+        // Créer un message d'invitation
+        const inviteMessage = document.createElement('p');
+        inviteMessage.className = 'invite-message';
+        inviteMessage.textContent = '~ Commencez à taper ~';
+        document.querySelector('.contact-info').appendChild(inviteMessage);
+        
+        // Créer la première ligne pour la saisie utilisateur
+        createNewLine();
     }
+
+    // Modifier l'écouteur d'événements pour le clavier
+    document.addEventListener('keydown', async function(e) {
+        if (!isInitialAnimationComplete) return;
+
+        // Ignorer les touches de contrôle sauf Entrée et Retour
+        if (e.key.length > 1 && !['Enter', 'Backspace'].includes(e.key)) return;
+
+        // Jouer le son approprié
+        if (e.key === 'Enter') {
+            playSound(returnSound);
+            createNewLine();
+            // Ajuster la hauteur uniquement lors d'un retour à la ligne
+            adjustPaperHeight();
+        } else if (e.key === 'Backspace') {
+            if (currentLine && currentLine.textContent.length > 0) {
+                currentLine.textContent = currentLine.textContent.slice(0, -1);
+                const typeSound = getRandomTypeSound();
+                playSound(typeSound);
+            }
+        } else {
+            if (currentLine) {
+                currentLine.textContent += e.key;
+                const typeSound = getRandomTypeSound();
+                playSound(typeSound);
+            }
+        }
+    });
 
     // Fonction pour démarrer l'animation sans son
     function startAnimationWithoutSound() {
@@ -125,6 +223,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 await typewriterEffectSilent(item, originalText);
                 await new Promise(resolve => setTimeout(resolve, 150));
             }
+
+            // Signaler que l'animation initiale est terminée
+            isInitialAnimationComplete = true;
+            
+            // Créer un message d'invitation
+            const inviteMessage = document.createElement('p');
+            inviteMessage.className = 'invite-message';
+            inviteMessage.textContent = '~ Commencez à taper ~';
+            document.querySelector('.contact-info').appendChild(inviteMessage);
+            
+            // Créer la première ligne pour la saisie utilisateur
+            createNewLine();
         }
 
         // Version modifiée de typewriterEffect sans son
