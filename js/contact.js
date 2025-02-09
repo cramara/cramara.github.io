@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chargement des sons avec vérification
     soundFiles.forEach(url => {
         const sound = loadSound(url);
-        sound.volume = 0.2;
+        sound.volume = 0.05;
         typeSounds.push(sound);
     });
 
     const returnSound = loadSound('sounds/type_writer_return_1.mp3');
-    returnSound.volume = 0.3;
+    returnSound.volume = 0.1;
 
     // Fonction pour obtenir un son de frappe aléatoire avec vérification
     function getRandomTypeSound() {
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Nouvelle fonction pour l'animation de machine à écrire
-    function typewriterEffect(element, text, speed = 20) { // Vitesse réduite à 20ms
+    function typewriterEffect(element, text, speed = 20) {
         let index = 0;
         element.textContent = '';
         element.style.visibility = 'visible';
@@ -68,14 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (index < text.length) {
                     element.textContent += text.charAt(index);
                     
-                    // Jouer un son de frappe seulement une fois sur deux (pour les caractères non-espaces)
-                    if (text.charAt(index) !== ' ' && index % 2 === 0) {
+                    // Jouer un son de frappe une fois sur trois (pour les caractères non-espaces)
+                    if (text.charAt(index) !== ' ' && index % 3 === 0) {
                         const typeSound = getRandomTypeSound();
                         playSound(typeSound);
                     }
                     
                     index++;
-                    setTimeout(type, speed + Math.random() * 20); // Variation de vitesse réduite
+                    setTimeout(type, speed + Math.random() * 20);
                 } else {
                     element.classList.remove('typing');
                     playSound(returnSound);
@@ -190,17 +190,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') {
             playSound(returnSound);
             createNewLine();
-            // Ajuster la hauteur uniquement lors d'un retour à la ligne
             adjustPaperHeight();
         } else if (e.key === 'Backspace') {
             if (currentLine && currentLine.textContent.length > 0) {
                 currentLine.textContent = currentLine.textContent.slice(0, -1);
+                // Jouer le son à chaque retour arrière
                 const typeSound = getRandomTypeSound();
                 playSound(typeSound);
             }
         } else {
             if (currentLine) {
                 currentLine.textContent += e.key;
+                // Jouer le son à chaque frappe
                 const typeSound = getRandomTypeSound();
                 playSound(typeSound);
             }
